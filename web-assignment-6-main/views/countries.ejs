@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UN Countries</title>
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body tabindex="-1">
+    <%- include('partials/navbar', {page: '/un/countries'})%>
+    <main>
+      <div class="container mx-auto">
+        <div class="hero bg-base-200 rounded-lg p-6">
+          <div class="hero-content text-center">
+            <div class="max-w-md">
+              <h1 class="text-5xl font-bold">Countries</h1>
+              <p class="py-6">
+                Browse countries, i.e., United Nations member states. Click the
+                'region' buttons to filter by regions such as:
+                <br/>
+                <a href="/un/countries?region=Africa" class="btn btn-primary mt-2 btn-xs">Africa</a>
+                <a href="/un/countries?region=Americas" class="btn btn-primary mt-2 btn-xs">Americas</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <table class="table table-zebra">
+        <tbody>
+          <% const countriesObj = JSON.parse(countries); %>
+          <% if(countriesObj) { %>
+          <% countriesObj.forEach(country=>{ %>
+          <tr >
+            <td>
+              <div class="avatar">
+                <div class="rounded h-24 min-w-40 shadow-xl">
+                  <img src="<%= country.flag %>" alt="<%= country.name %>" />
+                </div>
+              </div>
+            </td>
+            <td>
+              <%= country.name %> |
+              <a
+                href="/un/countries?region=<%= country.Region.name %>"
+                class="btn btn-primary mt-2 btn-xs"
+              >
+                <%= country.Region.name %>
+              </a>
+            </td>
+            <td>
+              <span class="font-bold">
+                Population: 
+              </span class="font-bold">
+              <%= country.population %> - 
+              <span class="font-bold">
+                Capital: 
+              </span class="font-bold">
+              <%= country.capital %>
+            </td>
+            <th>
+              <a
+                href="/un/countries/<%= country.a2code %>"
+                class="btn btn-primary mt-2 btn-xs"
+              >
+                details
+              </a>
+            </th>
+          </tr>
+          <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>
